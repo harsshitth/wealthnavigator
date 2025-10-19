@@ -1,45 +1,10 @@
-    <script>
-        function formatIndianNumber(num) {
-            if (!num) return '';
-            let n = num.toString().replace(/,/g, '');
-            let result = '';
-            let count = 0;
-            
-            for (let i = n.length - 1; i >= 0; i--) {
-                if (count === 3) {
-                    result = ',' + result;
-                    count = 0;
-                }
-                result = n[i] + result;
-                count++;
-            }
-            return result;
-        }
-
-        function setupNumberFormatting() {
-            const fields = ['salary', 'rent', 'groceries', 'utilities', 'transport', 'healthcare', 'entertainment', 'miscellaneous'];
-            
-            fields.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.addEventListener('input', function() {
-                        let val = this.value.replace(/,/g, '');
-                        this.value = formatIndianNumber(val);
-                    });
-                }
-            });
-        }
-
-        // Run after page loads
-        window.addEventListener('load', setupNumberFormatting);
-
-        function calculateFinances() {<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wealth Navigator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -97,34 +62,33 @@
         }
 
         h1 {
-            font-size: 3.5em;
-            font-weight: 400;
-            letter-spacing: 2px;
+            font-size: 3em;
+            font-weight: 600;
+            letter-spacing: 4px;
             margin-bottom: 10px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-family: 'Alice', serif;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-family: 'DM Serif Display', serif;
         }
 
         .tagline {
-            font-size: 1.1em;
-            color: #7f8c8d;
+            font-size: 1.3em;
+            color: #666;
             font-weight: 700;
             font-family: 'Montserrat', sans-serif;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
         }
 
         .card {
             background: #fff;
             border: 1px solid #e0e0e0;
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 40px;
             margin: 30px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .form-group {
@@ -136,53 +100,46 @@
             font-size: 0.9em;
             color: #555;
             margin-bottom: 8px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 500;
         }
 
         input, select {
             width: 100%;
-            padding: 14px 16px;
-            background: #f8f9fa;
+            padding: 12px 15px;
+            background: #fafafa;
             border: 1px solid #ddd;
-            border-radius: 8px;
-            color: #2c3e50;
-            font-size: 1.05em;
-            transition: all 0.3s ease;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            border-radius: 6px;
+            color: #333;
+            font-size: 1em;
+            transition: all 0.2s ease;
         }
 
         input:focus, select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #333;
             background: #fff;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         button {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px;
+            background: #1a1a1a;
             color: #fff;
             border: none;
-            border-radius: 8px;
-            font-size: 1.05em;
+            border-radius: 6px;
+            font-size: 1em;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             margin-top: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            background: #333;
         }
 
         button:active {
-            transform: translateY(0);
+            transform: scale(0.98);
         }
 
         .results {
@@ -201,92 +158,70 @@
         }
 
         .summary-item {
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            background: #fafafa;
             padding: 25px;
-            border-radius: 12px;
+            border-radius: 8px;
             text-align: center;
             border: 1px solid #e0e0e0;
         }
 
         .summary-label {
             font-size: 0.85em;
-            color: #7f8c8d;
+            color: #666;
             margin-bottom: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 500;
         }
 
         .summary-value {
             font-size: 2em;
             font-weight: 600;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #1a1a1a;
         }
 
         .section-title {
             font-size: 1.8em;
             margin: 50px 0 25px;
-            color: #2c3e50;
+            color: #1a1a1a;
             font-weight: 600;
             padding-bottom: 15px;
             border-bottom: 2px solid #e0e0e0;
         }
 
-        .risk-category {
-            margin: 40px 0;
-        }
-
-        .risk-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
-        }
-
-        .risk-low { background: #d4edda; color: #155724; }
-        .risk-medium { background: #fff3cd; color: #856404; }
-
         .investment-option {
-            background: #fff;
+            background: #fafafa;
             padding: 25px;
-            border-radius: 12px;
+            border-radius: 8px;
             margin: 15px 0;
-            border-left: 4px solid #667eea;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 4px solid #333;
+            transition: all 0.2s ease;
         }
 
         .investment-option:hover {
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-            transform: translateX(5px);
+            background: #f5f5f5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .investment-title {
-            font-size: 1.3em;
+            font-size: 1.2em;
             margin-bottom: 12px;
-            color: #2c3e50;
+            color: #1a1a1a;
             font-weight: 600;
         }
 
         .investment-meta {
             display: flex;
-            gap: 12px;
+            gap: 15px;
             flex-wrap: wrap;
             margin-bottom: 15px;
         }
 
         .meta-tag {
-            background: #f8f9fa;
-            padding: 6px 14px;
+            background: #fff;
+            padding: 5px 12px;
             border-radius: 15px;
             font-size: 0.8em;
             border: 1px solid #e0e0e0;
             color: #555;
-            font-weight: 500;
         }
 
         .investment-details {
@@ -296,25 +231,25 @@
         }
 
         .best-for {
-            background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
-            padding: 14px 16px;
-            border-radius: 8px;
+            background: #fff;
+            padding: 12px 15px;
+            border-radius: 6px;
             margin: 12px 0;
-            border: 1px solid #e8eaf6;
+            border: 1px solid #e0e0e0;
         }
 
         .best-for-title {
             font-weight: 600;
-            color: #667eea;
+            color: #333;
             margin-bottom: 5px;
             font-size: 0.9em;
         }
 
         .recommended-amount {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #1a1a1a;
             color: #fff;
-            padding: 12px 18px;
-            border-radius: 8px;
+            padding: 10px 15px;
+            border-radius: 6px;
             display: inline-block;
             margin-top: 12px;
             font-weight: 600;
@@ -325,7 +260,7 @@
             background: #fff3cd;
             border-left: 4px solid #ffc107;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 6px;
             margin: 20px 0;
             color: #856404;
         }
@@ -338,11 +273,11 @@
 
         .tip {
             background: #d1f2eb;
-            border-left: 4px solid #00bfa5;
+            border-left: 4px solid #00897b;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 6px;
             margin: 10px 0;
-            color: #00695c;
+            color: #004d40;
         }
 
         .expense-breakdown {
@@ -353,19 +288,19 @@
         }
 
         .expense-item {
-            background: #f8f9fa;
+            background: #fafafa;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid #e0e0e0;
         }
 
         .expense-item label {
-            font-size: 0.8em;
+            font-size: 0.85em;
         }
 
         .percentage-bar {
             background: #e0e0e0;
-            height: 8px;
+            height: 6px;
             border-radius: 10px;
             margin-top: 15px;
             overflow: hidden;
@@ -373,22 +308,22 @@
 
         .percentage-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: #1a1a1a;
             border-radius: 10px;
             transition: width 1s ease;
         }
 
         .insurance-section {
-            background: linear-gradient(135deg, #e3f2fd 0%, #e1bee7 100%);
-            border-left: 4px solid #667eea;
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
             padding: 25px;
-            border-radius: 12px;
+            border-radius: 8px;
             margin: 30px 0;
         }
 
         .insurance-title {
             font-size: 1.3em;
-            color: #2c3e50;
+            color: #0d47a1;
             font-weight: 600;
             margin-bottom: 15px;
         }
@@ -397,24 +332,20 @@
             margin: 15px 0;
             padding: 15px;
             background: #fff;
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
         .age-group-note {
-            background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
+            background: #f5f5f5;
             padding: 20px;
-            border-radius: 12px;
+            border-radius: 6px;
             margin: 20px 0;
-            border: 1px solid #e8eaf6;
+            border: 1px solid #e0e0e0;
         }
 
         @media (max-width: 768px) {
             .expense-breakdown {
                 grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2.2em;
             }
         }
     </style>
@@ -427,7 +358,7 @@
     <div class="container">
         <header>
             <h1>WEALTH NAVIGATOR</h1>
-            <p class="tagline">Your Personal Financial Intelligence System</p>
+            <p class="tagline">YOUR PERSONAL FINANCIAL INTELLIGENCE SYSTEM</p>
         </header>
 
         <div id="inputSection" class="card">
@@ -524,12 +455,12 @@
             const miscellaneous = parseFloat(document.getElementById('miscellaneous').value) || 0;
 
             if (age < 18 || age > 100) {
-                alert('Please enter a valid age between 18 and 100');
+                alert('Please enter a valid age');
                 return;
             }
 
             if (salary <= 0) {
-                alert('Please enter a valid salary amount');
+                alert('Please enter a valid salary');
                 return;
             }
 
@@ -543,228 +474,77 @@
             document.getElementById('displayPercentage').textContent = `${savingsPercentage}%`;
             document.getElementById('savingsBar').style.width = `${Math.min(savingsPercentage, 100)}%`;
 
-            generateAgeNote(age);
-            generateAlerts(salary, groceries, miscellaneous, entertainment, totalExpenses, savingsPercentage);
-            generateInsurance(age, salary);
-            generateInvestments(savings, salary, age, savingsPercentage);
+            const ageNote = `<div class="age-group-note"><strong>Your Profile: ${age <= 30 ? 'Young Professional' : age <= 45 ? 'Mid-Career' : age <= 60 ? 'Pre-Retirement' : 'Retirement'}</strong><p style="margin-top: 10px;">Build your emergency fund, invest in growth instruments, and plan for long-term wealth creation.</p></div>`;
+            document.getElementById('ageNote').innerHTML = ageNote;
+
+            let alerts = '';
+            if (groceries / salary * 100 > 15) {
+                alerts += '<div class="alert"><div class="alert-title">High Grocery Spending</div><p>Consider meal planning and bulk buying.</p></div>';
+            }
+            if (savingsPercentage < 20) {
+                alerts += '<div class="alert"><div class="alert-title">Low Savings Rate</div><p>Aim for 20-30% monthly savings.</p></div>';
+            }
+            if (!alerts) {
+                alerts = '<div class="tip"><strong>Excellent Financial Health!</strong></div>';
+            }
+            document.getElementById('alerts').innerHTML = alerts ? `<h2 class="section-title">Alerts</h2>${alerts}` : '';
+
+            const insurance = `<h2 class="section-title">Insurance</h2><div class="insurance-section"><div class="insurance-item"><strong>Term Life:</strong> ₹${(salary * 12 * 10).toLocaleString('en-IN')}</div><div class="insurance-item"><strong>Health:</strong> ₹5,00,000 minimum</div></div>`;
+            document.getElementById('insurance').innerHTML = insurance;
+
+            const ppfAmount = Math.floor(savings * 0.25);
+            let investments = '<h2 class="section-title">Investments</h2>';
+            investments += '<div class="investment-option"><div class="investment-title">Emergency Fund</div><p>₹' + (salary * 6).toLocaleString('en-IN') + '</p></div>';
+            if (ppfAmount >= 500) {
+                investments += '<div class="investment-option"><div class="investment-title">Public Provident Fund</div><p>₹' + ppfAmount.toLocaleString('en-IN') + '/month - 7.1% p.a.</p></div>';
+            }
+            investments += '<div class="investment-option"><div class="investment-title">Fixed Deposit</div><p>₹' + Math.floor(savings * 0.2).toLocaleString('en-IN') + '/month - 6.5-7.5% p.a.</p></div>';
+            investments += '<div class="investment-option"><div class="investment-title">Recurring Deposit (RD)</div><p>₹' + Math.floor(savings * 0.15).toLocaleString('en-IN') + '/month - 6-7% p.a.</p></div>';
+            investments += '<div class="investment-option"><div class="investment-title">National Savings Certificate (NSC)</div><p>7.7% p.a., 5 years, 80C Tax Benefit</p></div>';
+            if (age < 60) {
+                investments += '<div class="investment-option"><div class="investment-title">Employee Provident Fund (EPF)</div><p>8.25% p.a., Tax-Free, Government-Backed</p></div>';
+            }
+            investments += '<div class="investment-option"><div class="investment-title">Liquid Mutual Funds</div><p>6-7% p.a., No Lock-in, 24hr Withdrawal</p></div>';
+            investments += '<div class="investment-option"><div class="investment-title">Government Bonds</div><p>7-8% p.a., Zero Credit Risk</p></div>';
+            
+            if (age < 60) {
+                const sipAmount = Math.floor(savings * 0.30);
+                if (sipAmount >= 500) {
+                    investments += '<div class="investment-option"><div class="investment-title">Mutual Funds (SIP)</div><p>₹' + sipAmount.toLocaleString('en-IN') + '/month - 10-14% p.a.</p></div>';
+                }
+                investments += '<div class="investment-option"><div class="investment-title">Index Funds / ETFs</div><p>10-12% p.a., Very Low Cost</p></div>';
+                investments += '<div class="investment-option"><div class="investment-title">Debt Mutual Funds</div><p>7-9% p.a., Better Tax Than FDs</p></div>';
+                investments += '<div class="investment-option"><div class="investment-title">Sovereign Gold Bonds (SGB)</div><p>Gold + 2.5% p.a., Tax-Free at Maturity</p></div>';
+                investments += '<div class="investment-option"><div class="investment-title">Gold ETFs</div><p>Gold Price Linked, High Liquidity</p></div>';
+                if (savings >= 1000) {
+                    const npsAmount = Math.floor(savings * 0.15);
+                    investments += '<div class="investment-option"><div class="investment-title">National Pension System (NPS)</div><p>₹' + npsAmount.toLocaleString('en-IN') + '/month - 9-12% p.a.</p></div>';
+                }
+            }
+            
+            if (age < 55 && savings >= 10000) {
+                investments += '<div class="investment-option"><div class="investment-title">Direct Equity / Stocks</div><p>12-20% p.a., High Volatility, Requires Research</p></div>';
+                if (age < 45) {
+                    investments += '<div class="investment-option"><div class="investment-title">Cryptocurrency</div><p>Highly Volatile, 30% Tax + 1% TDS, Risky</p></div>';
+                }
+                investments += '<div class="investment-option"><div class="investment-title">Real Estate Investment</div><p>8-15% p.a., Low Liquidity</p></div>';
+                if (savings > 15000) {
+                    investments += '<div class="investment-option"><div class="investment-title">Start-up / Angel Investing</div><p>0-1000%+ Returns, 90% Fail Rate</p></div>';
+                }
+                investments += '<div class="investment-option"><div class="investment-title">Small-Cap Mutual Funds</div><p>12-18% p.a., High Risk, Long-term Only</p></div>';
+            }
+            
+            document.getElementById('investments').innerHTML = investments;
 
             document.getElementById('inputSection').style.display = 'none';
             document.getElementById('resultsSection').classList.add('active');
             document.getElementById('backButton').classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function generateAgeNote(age) {
-            const ageNoteDiv = document.getElementById('ageNote');
-            let ageGroup = '';
-            let advice = '';
-
-            if (age >= 18 && age <= 30) {
-                ageGroup = 'Young Professional (18-30)';
-                advice = 'This is your prime time for growth investing. You have time to recover from market volatility. Focus on building an emergency fund first, then maximize growth investments through SIPs and equity exposure.';
-            } else if (age >= 31 && age <= 45) {
-                ageGroup = 'Mid-Career (31-45)';
-                advice = 'Balance growth with stability. Start serious retirement planning with NPS and PPF. Ensure adequate life and health insurance coverage, especially if you have dependents.';
-            } else if (age >= 46 && age <= 60) {
-                ageGroup = 'Pre-Retirement (46-60)';
-                advice = 'Shift towards capital preservation. Focus on debt instruments, FDs, and government schemes. Maximize retirement contributions and ensure comprehensive insurance coverage.';
-            } else {
-                ageGroup = 'Retirement (60+)';
-                advice = 'Prioritize safety and regular income. Focus on SCSS, monthly income schemes, and safe debt instruments. Ensure health insurance is adequate and consider senior citizen saving schemes.';
-            }
-
-            ageNoteDiv.innerHTML = `
-                <div class="age-group-note">
-                    <strong style="font-size: 1.1em; color: #2c3e50;">Your Profile: ${ageGroup}</strong>
-                    <p style="margin-top: 10px; color: #555;">${advice}</p>
-                </div>
-            `;
-        }
-
-        function generateAlerts(salary, groceries, miscellaneous, entertainment, totalExpenses, savingsPercentage) {
-            const alertsDiv = document.getElementById('alerts');
-            let alerts = '';
-
-            const groceryPercentage = (groceries / salary) * 100;
-            if (groceryPercentage > 15) {
-                alerts += `
-                    <div class="alert">
-                        <div class="alert-title">⚠️ High Grocery Spending</div>
-                        <p>Your grocery expenses are ${groceryPercentage.toFixed(1)}% of your salary. Ideally, this should be 10-15%.</p>
-                        <div class="tip">💡 Try bulk buying, use loyalty cards, shop at local markets, meal prep.</div>
-                    </div>
-                `;
-            }
-
-            const miscPercentage = (miscellaneous / salary) * 100;
-            if (miscPercentage > 10) {
-                alerts += `
-                    <div class="alert">
-                        <div class="alert-title">⚠️ High Miscellaneous Spending</div>
-                        <p>Miscellaneous expenses are ${miscPercentage.toFixed(1)}% of your salary. This should ideally be under 10%.</p>
-                        <div class="tip">💡 Track all expenses, eliminate unnecessary subscriptions.</div>
-                    </div>
-                `;
-            }
-
-            const entPercentage = (entertainment / salary) * 100;
-            if (entPercentage > 10) {
-                alerts += `
-                    <div class="alert">
-                        <div class="alert-title">⚠️ High Entertainment Spending</div>
-                        <p>Entertainment expenses are ${entPercentage.toFixed(1)}% of your salary. Consider keeping this under 10%.</p>
-                        <div class="tip">💡 Look for free events, optimize subscriptions.</div>
-                    </div>
-                `;
-            }
-
-            if (savingsPercentage < 20) {
-                alerts += `
-                    <div class="alert">
-                        <div class="alert-title">⚠️ Low Savings Rate</div>
-                        <p>You're saving only ${savingsPercentage}% of your income. Aim for at least 20-30%.</p>
-                        <div class="tip">💡 Follow 50-30-20 rule: 50% needs, 30% wants, 20% savings.</div>
-                    </div>
-                `;
-            }
-
-            if (alerts === '') {
-                alerts = `<div class="tip"><strong>✨ Excellent Financial Health!</strong><p>Your spending is well-balanced!</p></div>`;
-            }
-
-            alertsDiv.innerHTML = alerts ? `<h2 class="section-title">Financial Insights</h2>` + alerts : '';
-        }
-
-        function generateInsurance(age, salary) {
-            const insuranceDiv = document.getElementById('insurance');
-            const annualIncome = salary * 12;
-            const lifeInsureCover = annualIncome * 10;
-            const healthInsureCover = age < 45 ? 500000 : 1000000;
-
-            let html = `<h2 class="section-title">Insurance Essentials</h2>
-                <div class="insurance-section">
-                    <div class="insurance-title">🛡️ Recommended Coverage</div>
-                    <div class="insurance-item">
-                        <strong style="color: #667eea;">Term Life Insurance</strong>
-                        <p style="color: #555; margin: 8px 0;">Cover: ₹${lifeInsureCover.toLocaleString('en-IN')}</p>
-                        <p style="color: #666; font-size: 0.9em;">Pure protection. Essential if you have dependents. Get 10-15x annual income.</p>
-                    </div>
-                    <div class="insurance-item">
-                        <strong style="color: #667eea;">Health Insurance</strong>
-                        <p style="color: #555; margin: 8px 0;">Cover: ₹${healthInsureCover.toLocaleString('en-IN')} (family)</p>
-                        <p style="color: #666; font-size: 0.9em;">Covers hospitalization. Consider super top-up for additional coverage.</p>
-                    </div>
-            `;
-
-            if (age >= 60) {
-                html += `<div class="insurance-item"><strong style="color: #667eea;">Senior Citizen Health Insurance</strong><p style="color: #666; font-size: 0.9em;">Specialized for 60+ with pre-existing disease coverage.</p></div>`;
-            }
-
-            html += `<div class="tip"><strong>Priority:</strong> Health Insurance > Term Life. Never mix insurance with investment.</div></div>`;
-            insuranceDiv.innerHTML = html;
-        }
-
-        function generateInvestments(savings, salary, age, savingsPercentage) {
-            const investmentsDiv = document.getElementById('investments');
-            
-            if (savings <= 0) {
-                investmentsDiv.innerHTML = `<h2 class="section-title">Investment Plan</h2><div class="alert"><div class="alert-title">⚠️ No Surplus</div><p>Focus on reducing expenses first.</p></div>`;
-                return;
-            }
-
-            let html = '<h2 class="section-title">Investment Recommendations</h2>';
-
-            // Emergency Fund
-            const emergencyFund = salary * 6;
-            html += `<div class="investment-option" style="border-left-color: #00bfa5;"><div class="investment-title">💰 Emergency Fund</div><div class="investment-meta"><span class="meta-tag">Risk: Zero</span><span class="meta-tag">Liquidity: Instant</span></div><div class="investment-details">Build 6 months of expenses (₹${emergencyFund.toLocaleString('en-IN')}). Keep in savings account or liquid fund.</div><div class="best-for"><div class="best-for-title">Why First:</div>Protects from debt during emergencies.</div><div class="recommended-amount">Save: ₹${Math.min(savings * 0.4, emergencyFund).toLocaleString('en-IN')}/month</div></div>`;
-
-            // Low Risk
-            html += `<div class="risk-category"><h3 style="font-size: 1.5em; margin: 30px 0 15px;">🟢 Low-Risk (Safe)</h3>`;
-
-            const ppfAmount = Math.floor(savings * 0.25);
-            if (ppfAmount >= 500) {
-                html += `<div class="investment-option"><div class="investment-title">Public Provident Fund (PPF)</div><div class="investment-meta"><span class="meta-tag">7.1% p.a.</span><span class="meta-tag">15 years</span><span class="meta-tag">Tax-Free</span></div><div class="investment-details">Government-backed with tax-free returns. Min ₹500, max ₹1.5L/year.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Long-term wealth, retirement, complete safety.</div><div class="recommended-amount">Invest: ₹${ppfAmount.toLocaleString('en-IN')}/month</div></div>`;
-            }
-
-            const fdAmount = Math.floor(savings * 0.15);
-            html += `<div class="investment-option"><div class="investment-title">Fixed Deposit (FD)</div><div class="investment-meta"><span class="meta-tag">6.5-7.5% p.a.</span><span class="meta-tag">Flexible</span><span class="meta-tag">Safe</span></div><div class="investment-details">Guaranteed returns with capital protection from banks and post offices.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Short-term goals, safety seekers, emergency backup.</div><div class="recommended-amount">Invest: ₹${fdAmount.toLocaleString('en-IN')}/month</div></div>`;
-
-            const rdAmount = Math.floor(savings * 0.10);
-            html += `<div class="investment-option"><div class="investment-title">Recurring Deposit (RD)</div><div class="investment-meta"><span class="meta-tag">6-7% p.a.</span><span class="meta-tag">1-10 years</span><span class="meta-tag">Safe</span></div><div class="investment-details">Monthly deposits with fixed returns. Builds savings discipline. Min ₹100/month.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Salaried individuals, short-term goals, monthly savers.</div></div>`;
-
-            html += `<div class="investment-option"><div class="investment-title">National Savings Certificate (NSC)</div><div class="investment-meta"><span class="meta-tag">7.7% p.a.</span><span class="meta-tag">5 years</span><span class="meta-tag">80C Benefit</span></div><div class="investment-details">Post office savings with fixed returns. Interest compounded annually.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Tax-saving with guaranteed returns, 5-year horizon.</div></div>`;
-
-            if (age < 60) {
-                html += `<div class="investment-option"><div class="investment-title">Employee Provident Fund (EPF)</div><div class="investment-meta"><span class="meta-tag">8.25% p.a.</span><span class="meta-tag">Till retirement</span><span class="meta-tag">Tax-Free</span></div><div class="investment-details">Mandatory for salaried. 12% contribution by both employee and employer. Tax-free interest.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>All salaried employees - maximize through VPF.</div></div>`;
-            }
-
-            html += `<div class="investment-option"><div class="investment-title">Liquid Mutual Funds</div><div class="investment-meta"><span class="meta-tag">6-7% p.a.</span><span class="meta-tag">No lock-in</span><span class="meta-tag">24hr withdrawal</span></div><div class="investment-details">Short-term debt. Better than savings account. Low risk, high liquidity.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Emergency fund, parking surplus, short-term savings.</div></div>`;
-
-            html += `<div class="investment-option"><div class="investment-title">Government Bonds (G-Secs)</div><div class="investment-meta"><span class="meta-tag">7-8% p.a.</span><span class="meta-tag">Various</span><span class="meta-tag">Zero credit risk</span></div><div class="investment-details">Issued by Government of India. Available on RBI Retail Direct platform.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Conservative investors, assured income, diversification.</div></div>`;
-
-            html += `</div>`;
-
-            // Medium Risk
-            if (age < 60) {
-                html += `<div class="risk-category"><h3 style="font-size: 1.5em; margin: 30px 0 15px;">🟡 Medium-Risk (Growth)</h3>`;
-
-                const sipAmount = Math.floor(savings * 0.30);
-                if (sipAmount >= 500) {
-                    html += `<div class="investment-option"><div class="investment-title">Mutual Funds (SIP)</div><div class="investment-meta"><span class="meta-tag">10-14% p.a.</span><span class="meta-tag">Flexible</span><span class="meta-tag">Tax Efficient</span></div><div class="investment-details">Monthly SIP in diversified equity funds. Professional management. Rupee cost averaging.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Long-term wealth creation (5+ years), beating inflation, disciplined investors.</div><div class="recommended-amount">SIP: ₹${sipAmount.toLocaleString('en-IN')}/month</div></div>`;
-                }
-
-                const indexAmount = Math.floor(savings * 0.20);
-                if (indexAmount >= 500) {
-                    html += `<div class="investment-option"><div class="investment-title">Index Funds / ETFs</div><div class="investment-meta"><span class="meta-tag">10-12% p.a.</span><span class="meta-tag">No lock-in</span><span class="meta-tag">Very low cost</span></div><div class="investment-details">Tracks Nifty 50 or Sensex. Expense ratio 0.1-0.5%. No manager risk. Diversified.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Passive investors, long-term (10+ years), low-cost returns, beginners.</div><div class="recommended-amount">Invest: ₹${indexAmount.toLocaleString('en-IN')}/month</div></div>`;
-                }
-
-                html += `<div class="investment-option"><div class="investment-title">Debt Mutual Funds</div><div class="investment-meta"><span class="meta-tag">7-9% p.a.</span><span class="meta-tag">No lock-in</span><span class="meta-tag">Low-Medium Risk</span></div><div class="investment-details">Invest in bonds and corporate debt. Better tax efficiency than FDs for 3+ years.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Alternative to FDs, better post-tax returns, medium-term goals (3-5 years).</div></div>`;
-
-                html += `<div class="investment-option"><div class="investment-title">Sovereign Gold Bonds (SGB)</div><div class="investment-meta"><span class="meta-tag">Gold + 2.5% p.a.</span><span class="meta-tag">8 years</span><span class="meta-tag">Tax-free</span></div><div class="investment-details">Government gold investment. 2.5% interest paid semi-annually. No storage concerns.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Gold investment without physical storage, inflation hedge, 5-8 year horizon.</div></div>`;
-
-                html += `<div class="investment-option"><div class="investment-title">Gold ETFs</div><div class="investment-meta"><span class="meta-tag">Gold linked</span><span class="meta-tag">No lock-in</span><span class="meta-tag">High liquidity</span></div><div class="investment-details">1 unit = 1 gram of gold. Trade like stocks. Buy/sell during market hours.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Gold exposure with liquidity, traders, short to medium term, small gold investments.</div></div>`;
-
-                if (savings >= 1000) {
-                    const npsAmount = Math.floor(savings * 0.15);
-                    html += `<div class="investment-option"><div class="investment-title">National Pension System (NPS)</div><div class="investment-meta"><span class="meta-tag">9-12% p.a.</span><span class="meta-tag">Till 60 years</span><span class="meta-tag">Extra ₹50K tax benefit</span></div><div class="investment-details">Market-linked retirement savings. Flexible allocation: equity, bonds, government securities.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Retirement planning, extra tax saving beyond ₹1.5L, long-term investors.</div><div class="recommended-amount">Invest: ₹${npsAmount.toLocaleString('en-IN')}/month</div></div>`;
-                }
-
-                html += `</div>`;
-            }
-
-            // High Risk
-            const canInvestRisky = savings >= 10000 && savingsPercentage >= 20 && salary >= 30000;
-            if (canInvestRisky && age < 55) {
-                html += `<div class="risk-category"><h3 style="font-size: 1.5em; margin: 30px 0 15px;">🔴 High-Risk (Advanced)</h3><p style="color: #666;">⚠️ Only if you understand risks and can afford losses.</p>`;
-
-                html += `<div class="investment-option"><div class="investment-title">Direct Equity / Stocks</div><div class="investment-meta"><span class="meta-tag">12-20% p.a.</span><span class="meta-tag">No lock-in</span><span class="meta-tag">Very High Risk</span></div><div class="investment-details">Buy individual company stocks. Requires research and market knowledge. High volatility. 7-10 year horizon recommended.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Experienced investors, market knowledge, high risk tolerance, long horizon.</div><div class="best-for" style="background: #ffebee; border-color: #ef5350;"><div class="best-for-title" style="color: #c62828;">⚠️ Warning:</div>Only 10-20% of portfolio. Never emergency fund money. Learn first. Start small.</div></div>`;
-
-                if (age < 45) {
-                    html += `<div class="investment-option"><div class="investment-title">Cryptocurrency (Bitcoin, Ethereum)</div><div class="investment-meta"><span class="meta-tag">Highly volatile</span><span class="meta-tag">No lock-in</span><span class="meta-tag">Extremely High Risk</span></div><div class="investment-details">Can gain 100% or lose 50% in weeks. 30% tax + 1% TDS. Regulatory uncertainty in India.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Tech-savvy young investors, money you can lose completely, experimental only.</div><div class="best-for" style="background: #ffebee; border-color: #ef5350;"><div class="best-for-title" style="color: #c62828;">⚠️ Major Warning:</div>Extremely risky. Never invest more than 2-5% of portfolio. Not for most investors.</div></div>`;
-                }
-
-                html += `<div class="investment-option"><div class="investment-title">Real Estate Investment</div><div class="investment-meta"><span class="meta-tag">8-15% p.a.</span><span class="meta-tag">Low liquidity</span><span class="meta-tag">Medium-High Risk</span></div><div class="investment-details">Buy residential/commercial property. Large capital needed. Rental income + appreciation. Location critical. REITs for smaller amounts.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>High net worth, long-term (10+ years), rental income seekers, tangible asset preference.</div></div>`;
-
-                if (savings > 15000) {
-                    html += `<div class="investment-option"><div class="investment-title">Start-up / Angel Investing</div><div class="investment-meta"><span class="meta-tag">0% to 1000%+</span><span class="meta-tag">5-10 years</span><span class="meta-tag">Extremely High Risk</span></div><div class="investment-details">Invest in early-stage companies. 90% fail. Successful ones give 10-100x returns. Due diligence essential.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Ultra-high risk appetite, entrepreneurial mindset, industry expertise, patient capital.</div><div class="best-for" style="background: #ffebee; border-color: #ef5350;"><div class="best-for-title" style="color: #c62828;">⚠️ Warning:</div>Most fail. Only less than 5% of wealth. Long waits for exits.</div></div>`;
-                }
-
-                html += `<div class="investment-option"><div class="investment-title">Small-Cap / Sectoral Mutual Funds</div><div class="investment-meta"><span class="meta-tag">12-18% p.a.</span><span class="meta-tag">No lock-in</span><span class="meta-tag">High Risk</span></div><div class="investment-details">Smaller companies with high growth. Sectoral funds focus on specific industries. High volatility in downturns.</div><div class="best-for"><div class="best-for-title">Perfect For:</div>Young investors (20-40), long horizon (10+ years), high risk appetite, aggressive growth.</div><div class="best-for"><div class="best-for-title">Important:</div>Limit to 10-15% of equity portfolio. Long-term commitment needed.</div></div>`;
-
-                html += `</div>`;
-            }
-
-            // Summary Tips
-            html += `<div class="tip" style="margin-top: 40px; padding: 25px; background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);"><strong style="font-size: 1.15em; color: #2c3e50;">💎 Investment Priority</strong><br><br><strong>1. Emergency Fund:</strong> Complete before any investment<br><strong>2. Insurance:</strong> Term life + Health mandatory<br><strong>3. Tax-Saving:</strong> PPF/NPS up to ₹1.5L (80C) + ₹50K (80CCD)<br><strong>4. Growth:</strong> Mutual Fund SIP for wealth creation<br><strong>5. Diversify:</strong> Mix low-risk, medium-risk by age<br><strong>6. Review Yearly:</strong> Check annually, not daily<br><br><strong style="color: #667eea;">Remember:</strong> Stay invested 5+ years. Consistency beats timing!</div>`;
-
-            investmentsDiv.innerHTML = html;
         }
 
         function resetCalculator() {
             document.getElementById('inputSection').style.display = 'block';
             document.getElementById('resultsSection').classList.remove('active');
             document.getElementById('backButton').classList.remove('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
