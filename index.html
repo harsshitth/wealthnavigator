@@ -43,21 +43,33 @@
             gap: 8px;
             transition: all 0.2s ease;
             z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .back-button:hover {
             background: #f5f5f5;
             border-color: #6B7FD7;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .back-button.show {
             display: flex;
         }
 
+        @media (max-width: 768px) {
+            .back-button {
+                top: 10px;
+                left: 10px;
+                padding: 8px 16px;
+                font-size: 0.85em;
+            }
+        }
+
         .header {
             text-align: center;
             margin-bottom: 40px;
-            padding: 30px 20px;
+            padding: 30px 20px 20px 20px;
         }
 
         .header h1 {
@@ -152,6 +164,14 @@
             
             .header h1 {
                 font-size: 2em;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px 10px;
             }
         }
 
@@ -265,19 +285,20 @@
         }
 
         .investment-card {
-            background: white;
+            background: #f8f9fa;
             padding: 25px;
             border-radius: 8px;
             margin-bottom: 20px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid #d0d0d0;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
 
         .investment-card:hover {
             border-color: #6B7FD7;
-            box-shadow: 0 4px 12px rgba(107, 127, 215, 0.15);
+            box-shadow: 0 4px 12px rgba(107, 127, 215, 0.2);
             transform: translateY(-2px);
+            background: white;
         }
 
         .investment-card h4 {
@@ -301,7 +322,7 @@
         }
 
         .investment-card p {
-            color: #666;
+            color: #444;
             line-height: 1.7;
             font-size: 0.9em;
             margin-bottom: 10px;
@@ -326,7 +347,7 @@
         }
 
         .investment-card .features li {
-            color: #666;
+            color: #555;
             font-size: 0.85em;
             margin-bottom: 6px;
             line-height: 1.6;
@@ -560,9 +581,29 @@
 
         <div class="results" id="results">
             <div class="form-card">
-                <div class="stat-box">
-                    <h3>Monthly Savings</h3>
-                    <div class="amount" id="savingsAmount">₹0</div>
+                <div class="financial-overview">
+                    <h2>Financial Overview</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; margin-top: 25px;">
+                        <div style="background: #f0f0f8; padding: 30px 25px; border-radius: 12px; text-align: center; border: 1px solid #e8e8f0;">
+                            <div style="font-size: 0.7em; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; font-weight: 600;">Monthly Salary</div>
+                            <div style="font-size: 2.5em; font-weight: 600; color: #6B7FD7; letter-spacing: -1px;" id="salaryDisplay">₹0</div>
+                        </div>
+                        <div style="background: #f0f0f8; padding: 30px 25px; border-radius: 12px; text-align: center; border: 1px solid #e8e8f0;">
+                            <div style="font-size: 0.7em; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; font-weight: 600;">Total Expenses</div>
+                            <div style="font-size: 2.5em; font-weight: 600; color: #6B7FD7; letter-spacing: -1px;" id="expensesDisplay">₹0</div>
+                        </div>
+                        <div style="background: #f0f0f8; padding: 30px 25px; border-radius: 12px; text-align: center; border: 1px solid #e8e8f0;">
+                            <div style="font-size: 0.7em; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; font-weight: 600;">Available Savings</div>
+                            <div style="font-size: 2.5em; font-weight: 600; color: #6B7FD7; letter-spacing: -1px;" id="savingsAmount">₹0</div>
+                        </div>
+                        <div style="background: #f0f0f8; padding: 30px 25px; border-radius: 12px; text-align: center; border: 1px solid #e8e8f0;">
+                            <div style="font-size: 0.7em; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; font-weight: 600;">Savings Rate</div>
+                            <div style="font-size: 2.5em; font-weight: 600; color: #6B7FD7; letter-spacing: -1px;" id="savingsRate">0%</div>
+                        </div>
+                    </div>
+                    <div style="width: 100%; height: 8px; background: linear-gradient(90deg, #e8e8e8 0%, #f0f0f0 100%); border-radius: 10px; overflow: hidden; margin-top: 20px;">
+                        <div id="savingsBarFill" style="height: 100%; background: linear-gradient(90deg, #6B7FD7 0%, #9b59b6 100%); border-radius: 10px; transition: width 0.8s ease; width: 0%;"></div>
+                    </div>
                 </div>
 
                 <div id="ageAdvice"></div>
@@ -617,7 +658,15 @@
             const savings = salary - totalExpenses;
             const savingsRate = (savings / salary) * 100;
 
+            // Update all displays
+            document.getElementById('salaryDisplay').textContent = `₹${Math.round(salary).toLocaleString('en-IN')}`;
+            document.getElementById('expensesDisplay').textContent = `₹${Math.round(totalExpenses).toLocaleString('en-IN')}`;
             document.getElementById('savingsAmount').textContent = `₹${Math.round(savings).toLocaleString('en-IN')}`;
+            document.getElementById('savingsRate').textContent = `${savingsRate >= 0 ? savingsRate.toFixed(1) : '0.0'}%`;
+            
+            // Update savings bar
+            const barFillPercent = Math.max(0, Math.min(100, savingsRate));
+            document.getElementById('savingsBarFill').style.width = `${barFillPercent}%`;
 
             // Show back button
             document.getElementById('backButton').classList.add('show');
@@ -817,6 +866,26 @@
                             </ul>
                         </div>
                     </div>
+
+                    <div class="investment-card">
+                        <h4>National Savings Certificate (NSC)</h4>
+                        <div class="best-for">Best for: Tax saving & guaranteed returns</div>
+                        <div class="allocation-box">
+                            <h5>Recommended Monthly Allocation</h5>
+                            <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.2), 8000).toLocaleString('en-IN')}</div>
+                        </div>
+                        <p>5-year fixed-income investment from post office. Interest <span class="highlight">compounds annually</span> but paid at maturity.</p>
+                        <div class="features">
+                            <strong>Key Features:</strong>
+                            <ul>
+                                <li><span class="highlight">Interest Rate: ~7.7% p.a.</span> (compounded annually)</li>
+                                <li>Tenure: 5 years (fixed)</li>
+                                <li>Minimum: ₹1,000, <span class="highlight">No maximum limit</span></li>
+                                <li><span class="highlight">Tax Benefit: Section 80C deduction</span></li>
+                                <li>Can be used as loan collateral</li>
+                            </ul>
+                        </div>
+                    </div>
                 `;
 
                 // FD/RD - Good for everyone
@@ -840,10 +909,53 @@
                                 </ul>
                             </div>
                         </div>
+
+                        <div class="investment-card">
+                            <h4>Post Office Monthly Income Scheme (POMIS)</h4>
+                            <div class="best-for">Best for: Regular monthly income seekers</div>
+                            <div class="allocation-box">
+                                <h5>Recommended One-time Investment</h5>
+                                <div class="amount-suggest">₹${Math.min(Math.round(savings * 12 * 2), 900000).toLocaleString('en-IN')}</div>
+                            </div>
+                            <p>Get <span class="highlight">fixed monthly income</span> for 5 years. Safe government-backed scheme.</p>
+                            <div class="features">
+                                <strong>Key Features:</strong>
+                                <ul>
+                                    <li><span class="highlight">Interest Rate: ~7.4% p.a.</span> (paid monthly)</li>
+                                    <li>Tenure: 5 years</li>
+                                    <li><span class="highlight">Maximum: ₹9 lakh (single), ₹15 lakh (joint)</span></li>
+                                    <li>Monthly income credited to account</li>
+                                    <li>Premature withdrawal after 1 year (with penalty)</li>
+                                </ul>
+                            </div>
+                        </div>
                     `;
                 }
 
-                investments += `</div>`; // Close low risk
+                // Add Liquid Funds
+                investments += `
+                    <div class="investment-card">
+                        <h4>Liquid Mutual Funds</h4>
+                        <div class="best-for">Best for: Parking emergency funds & short-term surplus</div>
+                        <div class="allocation-box">
+                            <h5>Recommended Monthly Allocation</h5>
+                            <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.3), 15000).toLocaleString('en-IN')}</div>
+                        </div>
+                        <p>Invest in very short-term debt instruments (up to 91 days). <span class="highlight">Better than savings account</span>, instant redemption available.</p>
+                        <div class="features">
+                            <strong>Key Features:</strong>
+                            <ul>
+                                <li><span class="highlight">Returns: 4-6% p.a.</span> (better than savings account)</li>
+                                <li><span class="highlight">Instant redemption</span> up to ₹50,000</li>
+                                <li><span class="highlight">No lock-in period</span></li>
+                                <li>Very low risk</li>
+                                <li>No entry/exit load</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+
+                investments += '</div>'; // Close low risk
 
                 // Medium Risk - Only if savings > 5000 and age < 55
                 if (!hasLowSavings && age < 55) {
@@ -873,6 +985,66 @@
                                     </ul>
                                 </div>
                             </div>
+
+                            <div class="investment-card">
+                                <h4>Index Funds / ETFs</h4>
+                                <div class="best-for">Best for: Low-cost equity exposure & passive investing</div>
+                                <div class="allocation-box">
+                                    <h5>Recommended Monthly Allocation</h5>
+                                    <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.25), 10000).toLocaleString('en-IN')}</div>
+                                </div>
+                                <p>Passively managed funds that track market indices like <span class="highlight">Nifty 50 or Sensex</span>. Lower expense ratio than active funds.</p>
+                                <div class="features">
+                                    <strong>Key Features:</strong>
+                                    <ul>
+                                        <li><span class="highlight">Expected Returns: 10-12% p.a.</span> (matches index)</li>
+                                        <li><span class="highlight">Very low expense ratio (0.1-0.5%)</span></li>
+                                        <li>Simple, transparent investment</li>
+                                        <li>ETFs can be traded like stocks</li>
+                                        <li>No fund manager bias</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="investment-card">
+                                <h4>Debt Mutual Funds</h4>
+                                <div class="best-for">Best for: Better returns than FDs with tax efficiency</div>
+                                <div class="allocation-box">
+                                    <h5>Recommended Monthly Allocation</h5>
+                                    <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.2), 8000).toLocaleString('en-IN')}</div>
+                                </div>
+                                <p>Invest in corporate bonds, government securities. <span class="highlight">Better tax treatment</span> than FDs for long-term holdings (3+ years).</p>
+                                <div class="features">
+                                    <strong>Key Features:</strong>
+                                    <ul>
+                                        <li><span class="highlight">Expected Returns: 6-8% p.a.</span></li>
+                                        <li><span class="highlight">Indexation benefit after 3 years</span></li>
+                                        <li>More liquid than FDs</li>
+                                        <li>Various categories: liquid, short-term, long-term</li>
+                                        <li>Lower risk than equity funds</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="investment-card">
+                                <h4>Sovereign Gold Bonds (SGBs)</h4>
+                                <div class="best-for">Best for: Gold investment + regular interest income</div>
+                                <div class="allocation-box">
+                                    <h5>Recommended Monthly Allocation</h5>
+                                    <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.15), 5000).toLocaleString('en-IN')}</div>
+                                </div>
+                                <p>Government-issued bonds linked to gold prices. Better than physical gold - earns <span class="highlight">2.5% interest + gold price appreciation</span>.</p>
+                                <div class="features">
+                                    <strong>Key Features:</strong>
+                                    <ul>
+                                        <li><span class="highlight">Returns: Gold price + 2.5% p.a. interest</span></li>
+                                        <li>Tenure: 8 years (exit allowed after 5 years)</li>
+                                        <li><span class="highlight">No storage issues</span> like physical gold</li>
+                                        <li><span class="highlight">Tax-free if held till maturity</span></li>
+                                        <li>Can be used as collateral</li>
+                                    </ul>
+                                </div>
+                            </div>
                     `;
 
                     if (age < 60) {
@@ -899,7 +1071,7 @@
                         `;
                     }
 
-                    investments += `</div>`; // Close medium risk
+                    investments += '</div>'; // Close medium risk
                 }
 
                 // High Risk - Only if savings > 15000, salary > 50000, and age < 45
@@ -927,6 +1099,46 @@
                                         <li>Full control over stock selection</li>
                                         <li><span class="highlight">Requires market knowledge</span> and research</li>
                                         <li><span class="highlight">Can lose significant capital</span> in downturns</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="investment-card">
+                                <h4>Small-Cap / Mid-Cap Mutual Funds</h4>
+                                <div class="best-for">Best for: Aggressive investors with 7+ year horizon</div>
+                                <div class="allocation-box">
+                                    <h5>Recommended Monthly Allocation</h5>
+                                    <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.1), 8000).toLocaleString('en-IN')}</div>
+                                </div>
+                                <p>Invest in smaller companies with <span class="highlight">high growth potential</span>. More volatile but can give multibagger returns.</p>
+                                <div class="features">
+                                    <strong>Key Features:</strong>
+                                    <ul>
+                                        <li><span class="highlight">Expected Returns: 15-20% p.a.</span> over long term</li>
+                                        <li>High volatility in short term</li>
+                                        <li>Small-caps can give multibagger returns</li>
+                                        <li><span class="highlight">Recommended: Max 10-15% of portfolio</span></li>
+                                        <li>Professional management reduces risk</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="investment-card">
+                                <h4>REITs (Real Estate Investment Trusts)</h4>
+                                <div class="best-for">Best for: Real estate exposure without buying property</div>
+                                <div class="allocation-box">
+                                    <h5>Recommended Monthly Allocation</h5>
+                                    <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.1), 5000).toLocaleString('en-IN')}</div>
+                                </div>
+                                <p>Invest in commercial real estate portfolios. Get <span class="highlight">rental income + capital appreciation</span> without buying property.</p>
+                                <div class="features">
+                                    <strong>Key Features:</strong>
+                                    <ul>
+                                        <li><span class="highlight">Expected Returns: 8-12% p.a.</span> + dividends</li>
+                                        <li><span class="highlight">90% income distributed as dividends</span></li>
+                                        <li>Minimum investment: ₹10,000-50,000</li>
+                                        <li>Can be traded on stock exchange</li>
+                                        <li>More liquid than physical property</li>
                                     </ul>
                                 </div>
                             </div>
