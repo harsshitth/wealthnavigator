@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wealth Navigator</title>
   <style>
-    /* (All your original CSS from the file remains unchanged) */
+    /* (Keep your existing CSS styles unchanged here) */
   </style>
 </head>
 <body>
-  <!-- Your existing layout and containers remain intact -->
+  <!-- Your full layout and containers remain intact -->
   <script>
     function formatInput(input) {
       let value = input.value.replace(/,/g, '');
@@ -67,49 +67,105 @@
 
       let investments = '';
 
+      // Low-Risk Options
       investments += `
-        <div class="investment-card">
-          <h4>Liquid Mutual Funds</h4>
-          <div class="best-for">Best for: Parking emergency funds & short-term surplus</div>
-          <div class="allocation-box">
-            <h5>Recommended Monthly Allocation</h5>
-            <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.3), 15000).toLocaleString('en-IN')}</div>
+        <div class="risk-category">
+          <div class="risk-header">
+            <div class="risk-badge low"></div>
+            <h3>Low-Risk Options (Safe & Stable)</h3>
           </div>
-          <p>Invest in short-term debt instruments (up to 91 days). Better than savings account, instant redemption available.</p>
-          <div class="features">
-            <strong>Key Features:</strong>
-            <ul>
-              <li>Returns: 4–6% p.a. (better than savings account)</li>
-              <li>Instant redemption up to ₹50,000</li>
-              <li>No lock-in period</li>
-              <li>Very low risk</li>
-              <li>No entry/exit load</li>
-            </ul>
+          <div class="investment-card">
+            <h4>Public Provident Fund (PPF)</h4>
+            <div class="best-for">Best for: Long-term wealth creation</div>
+            <div class="allocation-box">
+              <h5>Recommended Monthly Allocation</h5>
+              <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.3), 12500).toLocaleString('en-IN')}</div>
+            </div>
+            <p>15-year government-backed scheme with tax-free returns and triple tax exemption.</p>
+          </div>
+          <div class="investment-card">
+            <h4>National Savings Certificate (NSC)</h4>
+            <div class="best-for">Best for: Guaranteed returns</div>
+            <div class="allocation-box">
+              <h5>Recommended Monthly Allocation</h5>
+              <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.2), 8000).toLocaleString('en-IN')}</div>
+            </div>
+            <p>5-year fixed income plan with ~7.7% p.a. interest, compounded annually and paid on maturity.</p>
+          </div>
+          <div class="investment-card">
+            <h4>Post Office Monthly Income Scheme (POMIS)</h4>
+            <div class="best-for">Best for: Regular monthly income</div>
+            <div class="allocation-box">
+              <h5>Recommended Monthly Allocation</h5>
+              <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.25), 10000).toLocaleString('en-IN')}</div>
+            </div>
+            <p>Government-backed 5-year plan offering fixed monthly income at ~7.4% p.a.</p>
           </div>
         </div>
       `;
 
+      // Medium-Risk Options
       investments += `
-        <div class="investment-card">
-          <h4>Public Provident Fund (PPF)</h4>
-          <div class="best-for">Best for: Long-term wealth creation</div>
-          <div class="allocation-box">
-            <h5>Recommended Monthly Allocation</h5>
-            <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.3), 12500).toLocaleString('en-IN')}</div>
+        <div class="risk-category">
+          <div class="risk-header">
+            <div class="risk-badge medium"></div>
+            <h3>Medium-Risk Options (Balanced Growth)</h3>
           </div>
-          <p>Government-backed 15-year scheme with tax-free returns and triple tax exemption.</p>
+          <div class="investment-card">
+            <h4>Mutual Funds - SIP</h4>
+            <div class="best-for">Best for: Long-term wealth creation</div>
+            <div class="allocation-box">
+              <h5>Recommended Monthly Allocation</h5>
+              <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.35), 15000).toLocaleString('en-IN')}</div>
+            </div>
+            <p>Invest small monthly amounts in diversified equity and debt mutual funds for 10–15% long-term returns.</p>
+          </div>
+          <div class="investment-card">
+            <h4>Index Funds / ETFs</h4>
+            <div class="best-for">Best for: Passive investing</div>
+            <div class="allocation-box">
+              <h5>Recommended Monthly Allocation</h5>
+              <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.25), 10000).toLocaleString('en-IN')}</div>
+            </div>
+            <p>Track indices like Nifty 50 or Sensex for 10–12% returns at very low expense ratios (0.1–0.5%).</p>
+          </div>
+          <div class="investment-card">
+            <h4>Debt Mutual Funds</h4>
+            <div class="best-for">Best for: Safer returns than FDs</div>
+            <div class="allocation-box">
+              <h5>Recommended Monthly Allocation</h5>
+              <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.2), 8000).toLocaleString('en-IN')}</div>
+            </div>
+            <p>Invest in corporate and government bonds. Tax-efficient with 6–8% p.a. expected returns.</p>
+          </div>
         </div>
       `;
 
+      // High-Risk Options
       investments += `
-        <div class="investment-card">
-          <h4>National Savings Certificate (NSC)</h4>
-          <div class="best-for">Best for: Guaranteed returns</div>
-          <div class="allocation-box">
-            <h5>Recommended Monthly Allocation</h5>
-            <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.2), 8000).toLocaleString('en-IN')}</div>
+        <div class="risk-category">
+          <div class="risk-header">
+            <div class="risk-badge high"></div>
+            <h3>High-Risk Options (Growth & Aggression)</h3>
           </div>
-          <p>5-year fixed income option with ~7.7% p.a. interest. Interest compounded annually, paid at maturity.</p>
+          <div class="investment-card">
+            <h4>Sovereign Gold Bonds (SGBs)</h4>
+            <div class="best-for">Best for: Gold investment with interest</div>
+            <div class="allocation-box">
+              <h5>Recommended Monthly Allocation</h5>
+              <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.15), 5000).toLocaleString('en-IN')}</div>
+            </div>
+            <p>Earn 2.5% annual interest plus gold price appreciation. Tax-free if held till maturity (8 years).</p>
+          </div>
+          <div class="investment-card">
+            <h4>Cryptocurrency (Bitcoin, Ethereum)</h4>
+            <div class="best-for">Best for: Tech-savvy investors</div>
+            <div class="allocation-box">
+              <h5>Recommended Monthly Allocation</h5>
+              <div class="amount-suggest">₹${Math.min(Math.round(savings * 0.1), 3000).toLocaleString('en-IN')}</div>
+            </div>
+            <p>High-risk, high-volatility digital assets. Consider <strong>&lt;5–10% allocation</strong> of your portfolio only.</p>
+          </div>
         </div>
       `;
 
